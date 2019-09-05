@@ -1,0 +1,7 @@
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\bin\Debug\Opg01_Linje.exe.config
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\bin\Debug\Opg01_Linje.exe
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\bin\Debug\Opg01_Linje.pdb
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\obj\Debug\Opg01_Linje.csprojAssemblyReference.cache
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\obj\Debug\Opg01_Linje.csproj.CoreCompileInputs.cache
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\obj\Debug\Opg01_Linje.exe
+C:\GIT_REPOS\CSharp\CPH_VidereProg\Opg01_Linje\Opg01_Linje\obj\Debug\Opg01_Linje.pdb
