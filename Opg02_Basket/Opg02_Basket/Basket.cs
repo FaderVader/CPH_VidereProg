@@ -104,7 +104,7 @@ namespace Opg02_Basket
         {
             get
             {
-                return totalPrice + 50.0M;
+                return totalPrice + Shop.ShippingCost;
             }
         }
     }
