@@ -10,6 +10,14 @@ namespace Opg02_Basket
     {
         private Basket basket;
 
+        private static decimal shippingCost = 50.0M;
+
+        public static decimal ShippingCost
+        {
+            get { return shippingCost; }
+            set { shippingCost = value; }
+        }
+
         public Shop()
         {
             basket = new Basket();
@@ -34,12 +42,8 @@ namespace Opg02_Basket
                 Console.WriteLine($"{item.Name} for {item.Price}");
             });
 
-            Console.WriteLine("\nOther actions:");
-            Console.WriteLine("1: show basket");
-            Console.WriteLine("2: remove item from basket.");
-            Console.WriteLine("exit: stop shopping.");
+            Console.WriteLine("\nYour options:");
 
-            Console.WriteLine("\nPlease type your choice:");
         }
 
         public void TakeOrder()
@@ -49,6 +53,7 @@ namespace Opg02_Basket
 
             while (!done)
             {
+                Console.WriteLine("\n1: show basket\n2: remove item from basket.\n3: show items\nexit: stop shopping.\n\nPlease type your choice:");
                 userInput = Console.ReadLine();
                 ProcessInput(userInput);
             }
@@ -64,6 +69,10 @@ namespace Opg02_Basket
 
                 case "2":
                     RemoveItemFromBasket();
+                    break;
+
+                case "3":
+                    WelComeShopper();
                     break;
 
                 case "exit":
@@ -85,12 +94,10 @@ namespace Opg02_Basket
         private void AddItemToBasket(string userInput)
         {
             StoreItem item = storeItems.Where(x => x.Name.ToLower() == userInput.Trim().ToLower()).FirstOrDefault();
-            if (basket.AddItem(item))
+            if (item!=null && basket.AddItem(item))
             {
-                Console.WriteLine($"Adding item to basket: {item.Name} for {item.Price}");
+                Console.WriteLine($"Adding item to basket: {item.Name} for {item.Price}kr.");
             };
-
-
         }
 
         private void RemoveItemFromBasket()
@@ -99,7 +106,7 @@ namespace Opg02_Basket
             string removeItem = Console.ReadLine();
 
             StoreItem item = storeItems.Where(x => x.Name.ToLower() == removeItem.Trim().ToLower()).FirstOrDefault();
-            if (basket.RemoveItem(item))
+            if (item != null && basket.RemoveItem(item))
             {
                 Console.WriteLine($"Removed {item.Name} from basket");
             };

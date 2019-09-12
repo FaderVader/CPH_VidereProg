@@ -19,10 +19,12 @@ namespace Opg02_Basket
 
         public bool AddItem(StoreItem item)
         {
+            if (item == null) return false;
+
             try
             {
                 basketItems.Add(item);
-                Console.WriteLine($"Added {item.Name} at {item.Price}");
+                Console.WriteLine($"Added {item.Name} at {item.Price}kr");
                 totalPrice += item.Price;
 
                 return true;
@@ -36,43 +38,74 @@ namespace Opg02_Basket
 
         public bool RemoveItem(StoreItem purgeItem)
         {
-            List<StoreItem> tempBasket;
 
-            if (basketItems.Count < 1) {
-                Console.WriteLine($"Cannot remove {purgeItem.Name} - basket is empty");
-                return false;
-            }
-
-            try
-            {
-                tempBasket = basketItems.Where(item => item.Name != purgeItem.Name).ToList();
-                basketItems = tempBasket;
-                totalPrice -= purgeItem.Price;
-                return true;
-            }
-            catch (Exception)
+            if (purgeItem == null)
             {
                 Console.WriteLine($"{purgeItem} not found in basket");
                 return false;
             }
 
+            if (basketItems.Count < 1)
+            {
+                Console.WriteLine($"Cannot remove {purgeItem.Name} - basket is empty");
+                return false;
+            }
+
+            if (basketItems.Contains(purgeItem))
+            {
+                foreach (var item in basketItems)
+                {
+                    if (item.Name == purgeItem.Name)
+                    {
+                        basketItems.Remove(item);
+                        totalPrice -= purgeItem.Price;
+                        return true;
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"{purgeItem.Name} not found in basket");
+                return false;
+            }
         }
 
         internal void ShowContents()
         {
-
-            if (basketItems.Count > 0)
+            if (basketItems.Count < 1)
             {
-                basketItems.ForEach(item =>
-                {
-                    Console.WriteLine($"{item.Name} - {item.Price}");
-                });
-            } else
-            {
-                Console.WriteLine("Basket is currently empty");
+                Console.WriteLine("Basket is empty ?");
+                return;
             }
 
+            var uniqueTypes = new Dictionary<StoreItem, int>();
+            basketItems.ForEach(item =>
+            {
+                if (uniqueTypes.ContainsKey(item))
+                {
+                    uniqueTypes[item]++;
+                }
+                else
+                {
+                    uniqueTypes.Add(item, 1);
+                }
+            });
 
+            Console.WriteLine();
+            foreach (KeyValuePair<StoreItem, int> pair in uniqueTypes)
+            {
+                Console.WriteLine($"Item: {pair.Key.Name}\tCount: {pair.Value}\tSub-total: {pair.Key.Price * pair.Value}kr.");
+            }
+            Console.WriteLine($"Your total, incl {Shop.ShippingCost}kr shipping: {Totalprice}kr.");
+        }
+
+        public decimal Totalprice
+        {
+            get
+            {
+                return totalPrice + 50.0M;
+            }
         }
     }
 }
