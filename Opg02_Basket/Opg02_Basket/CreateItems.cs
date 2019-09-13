@@ -16,7 +16,6 @@ namespace Opg02_Basket
             new StoreItem("Tent", 112.34M),
             new StoreItem("Poncho", 45.45M),
             new StoreItem("Compass", 31.25M),
-            new StoreItem("Crackers", 5.40M),
             new StoreItem("Crackers", 5.40M)
         };
 

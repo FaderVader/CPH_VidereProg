@@ -9,9 +9,8 @@ namespace Opg02_Basket
     public class Shop
     {
         private Basket basket;
-
+        private List<StoreItem> storeItems;
         private static decimal shippingCost = 50.0M;
-
         public static decimal ShippingCost
         {
             get { return shippingCost; }
@@ -22,16 +21,15 @@ namespace Opg02_Basket
         {
             basket = new Basket();
 
-            StockUp();
+            storeItems = StockUp();
             WelComeShopper();
             TakeOrder();
         }
 
-        private List<StoreItem> storeItems;
 
-        private void StockUp()
+        private List<StoreItem> StockUp()
         {
-            storeItems = CreateItems.GetItems();
+            return CreateItems.GetItems();
         }
 
         public void WelComeShopper()
@@ -39,7 +37,7 @@ namespace Opg02_Basket
             Console.WriteLine("\nWELCOME SHOPPER, YOU CAN CHOOSE FROM:");
             storeItems.ForEach(item =>
             {
-                Console.WriteLine($"{item.Name} for {item.Price}");
+                Console.WriteLine($"{item.Name} for {item.Price.ConvertDecToCurr()}");
             });
 
             Console.WriteLine("\nYour options:");

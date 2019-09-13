@@ -24,7 +24,7 @@ namespace Opg02_Basket
             try
             {
                 basketItems.Add(item);
-                Console.WriteLine($"Added {item.Name} at {item.Price}kr");
+                Console.WriteLine($"Added {item.Name} at {item.Price.ConvertDecToCurr()}kr");
                 totalPrice += item.Price;
 
                 return true;
@@ -95,9 +95,10 @@ namespace Opg02_Basket
             Console.WriteLine();
             foreach (KeyValuePair<StoreItem, int> pair in uniqueTypes)
             {
-                Console.WriteLine($"Item: {pair.Key.Name}\tCount: {pair.Value}\tSub-total: {pair.Key.Price * pair.Value}kr.");
+                string price = (pair.Key.Price * pair.Value).ConvertDecToCurr();
+                Console.WriteLine($"Item: {pair.Key.Name}\tCount: {pair.Value}\tSub-total: {price}kr.");
             }
-            Console.WriteLine($"Your total, incl {Shop.ShippingCost}kr shipping: {Totalprice}kr.");
+            Console.WriteLine($"Your total, incl {Shop.ShippingCost.ConvertDecToCurr()}kr shipping: {Totalprice.ConvertDecToCurr()}kr.");
         }
 
         public decimal Totalprice
