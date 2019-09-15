@@ -8,7 +8,7 @@ namespace Opg02_Basket
 {
     public static class Extensions
     {   
-        public static string ConvertDecToCurr(this decimal input)
+        public static string ToKr(this decimal input)
         {
             //string formatter = "{0:#.#,00}";
             //return string.Format(formatter, input);

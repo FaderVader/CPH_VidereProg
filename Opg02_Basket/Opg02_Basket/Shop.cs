@@ -37,7 +37,7 @@ namespace Opg02_Basket
             Console.WriteLine("\nWELCOME SHOPPER, YOU CAN CHOOSE FROM:");
             storeItems.ForEach(item =>
             {
-                Console.WriteLine($"{item.Name} for {item.Price.ConvertDecToCurr()}");
+                Console.WriteLine($"{item.Name} for {item.Price.ToKr()}");
             });
 
             Console.WriteLine("\nYour options:");
@@ -94,7 +94,7 @@ namespace Opg02_Basket
             StoreItem item = storeItems.Where(x => x.Name.ToLower() == userInput.Trim().ToLower()).FirstOrDefault();
             if (item!=null && basket.AddItem(item))
             {
-                Console.WriteLine($"Adding item to basket: {item.Name} for {item.Price}kr.");
+                Console.WriteLine($"Adding item to basket: {item.Name} for {item.Price.ToKr()}kr.");
             };
         }
 
