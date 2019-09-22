@@ -34,10 +34,4 @@ namespace Opg03_FilSystem
         public int sizeX;
         public int sizeY;
     }
-
-    //public class superClass : MyFile, IDuration, IResolution
-    //{
-    //    public Resolution Resolution { get; set; }
-    //    public TimeSpan Duration { get; set; }
-    //}
 }
