@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Opg03_FilSystem
 {
@@ -23,8 +20,9 @@ namespace Opg03_FilSystem
         {
             List<IMyFile> fileList = PopulateList();
 
-            CombinedDuration(fileList);
-            CombinedSize(fileList);
+            Console.WriteLine($"Combined size: {CombinedSize(fileList)}");
+            Console.WriteLine($"Combined duration: {CombinedDuration(fileList)}");
+
             Console.ReadKey();
         }
 
@@ -38,8 +36,7 @@ namespace Opg03_FilSystem
                 {
                     combinedDuration += ((IDuration)file).Duration;
                 }
-            }
-            Console.WriteLine($"Combined duration: {combinedDuration}");
+            }            
             return combinedDuration;
         }
 
@@ -50,8 +47,7 @@ namespace Opg03_FilSystem
             {
                 Console.WriteLine($"FileName: {file.FileName}, size: {file.FileSize}");
                 combinedSize += file.FileSize;
-            }
-            Console.WriteLine($"Combined size: {combinedSize}");
+            }            
             return combinedSize;
         }
 
