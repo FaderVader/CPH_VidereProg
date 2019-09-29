@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0EA3A06B-0D33-4FC0-A98C-285AA0D58260}</ProjectGuid>
+    <ProjectGuid>{905AFD06-CA95-45B7-819C-963B3DAC384F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Dag4</RootNamespace>
-    <AssemblyName>Dag4</AssemblyName>
+    <RootNamespace>FileSystemObject</RootNamespace>
+    <AssemblyName>FileSystemObject</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
