@@ -18,7 +18,6 @@ namespace FileSystemObject
         }
 
         public abstract int GetSize();
-
     }
 
     public class Folder : FSObject

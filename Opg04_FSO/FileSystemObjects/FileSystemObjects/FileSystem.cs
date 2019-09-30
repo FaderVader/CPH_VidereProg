@@ -41,16 +41,17 @@ namespace FileSystemObject
 
         private void PrintFiles(Folder targetFolder)
         {
+            Console.WriteLine($"Folder: {targetFolder.Name}");
+
             foreach (var folder in targetFolder.SubFolders)
             {
-                Console.WriteLine($"<{targetFolder.Name}> {folder.Name}");
+                Console.WriteLine($"<folder@ {targetFolder.Name}> {folder.Name}");
             }
 
             foreach (var file in targetFolder.Files)
             {
-                Console.WriteLine($"@{targetFolder.Name}: {file.Name} - {file.GetSize()} bytes");
+                Console.WriteLine($"file: {file.Name} - {file.GetSize()} bytes"); //: {targetFolder.Name}-folder
             }
-
             Console.WriteLine("");
 
             foreach (var folder in targetFolder.SubFolders)
@@ -66,7 +67,12 @@ namespace FileSystemObject
 
         private int GetTotalSize(Folder targetFolder)
         {
-            foreach (Folder folder in targetFolder)
+            // TODO: fix not counting the files in root-folder ( expected value: 123168 )            
+
+            // if not implementing IEnumerator in class Folder:
+            // foreach (Folder folder in targetFolder.SubFolders)
+
+            foreach (Folder folder in targetFolder) 
             {
                 totalSize += folder.GetSize();
 
