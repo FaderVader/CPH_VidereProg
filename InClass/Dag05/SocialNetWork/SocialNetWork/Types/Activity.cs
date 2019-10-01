@@ -1,4 +1,5 @@
 ﻿using SocialNetWork.Interfaces;
+using SocialNetWork.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +8,24 @@ using System.Threading.Tasks;
 
 namespace SocialNetWork.Types
 {
-    public abstract class Activity //: IActivity
+    public class Event : Activity
     {
-        public DateTime EventTime { get; set; }
-
-        public Activity()
+        public Event()
         {
             EventTime = DateTime.Now;
         }
+    }
 
-        public List<Activity> Events { get; set; } // private list ?
+    public abstract class Activity
+    {
+        public DateTime EventTime { get; set; }
 
-        // method for adding events
+        //public List<Activity> Events { get; set; } // private list ?
+
+        public void AddEvent(Activity activity)
+        {
+            //Events.Add(activity);
+        }
     }
 
     public class FriendShip : Activity
@@ -30,4 +37,7 @@ namespace SocialNetWork.Types
     {
         // track when person follows page
     }
+
+
+
 }

@@ -8,8 +8,6 @@ namespace SocialNetWork.Types
 {
     public class Network 
     {
-        //public List<Entity> Entities { get; set; }
-
         private List<Entity> entities; 
 
         public List<Entity> Entities
