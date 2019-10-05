@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace SocialNetWork.Types
 {
     public class Network 
-    {
+    { 
         private List<Entity> entities; 
 
         public List<Entity> Entities
         {
             get { return entities;  }
-            set { entities = value; }
+            //set { entities = value; }
         }
 
         public Network()
@@ -64,6 +64,19 @@ namespace SocialNetWork.Types
                             Console.WriteLine($"- {relation.Name}");
                     }
                 }
+            }
+        }
+
+        public void PrintAllActivities()
+        {
+            //Entities.ForEach(entity =>
+            //{
+            //    entity.PrintActivities();
+            //});
+
+            foreach(var entity in Entities)
+            {
+                entity.PrintActivities();
             }
         }
     }

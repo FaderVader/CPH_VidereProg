@@ -9,17 +9,40 @@ namespace SocialNetWork.Types
     public abstract class Entity
     {
         // navn og fødselsdag
-        public string Name { get; set; }
-        public DateTime Birthday { get; set; }
+        private string name;
+        private DateTime birthday;
 
-        public List<Entity> Relations { get; set; }
+        public string Name { get { return name; } } 
+        public DateTime Birthday { get { return birthday; } } 
+
+        public List<Entity> Relations { get; } // set
+        public List<Activity> Activities { get; }
 
         public Entity(string name, DateTime birthday)
         {
-            this.Name = name;
-            this.Birthday = birthday;
+            this.name = name;
+            this.birthday = birthday;
 
             Relations = new List<Entity>();
+            Activities = new List<Activity>();
+        }
+
+        public void AddRelation(Entity entity)
+        {
+            Relations.Add(entity);
+        }
+
+        public void AddActivity(Activity activity)
+        {
+            Activities.Add(activity);
+        }
+
+        public void PrintActivities()
+        {
+            Activities.ForEach(activity =>
+            {
+                Console.WriteLine(activity.GetText());
+            });
         }
     }
 }

@@ -8,10 +8,6 @@ namespace SocialNetWork.Types
 {
     public class Page : Entity
     {
-        public Page(string name, DateTime birthday) : base(name, birthday)
-        {
-            this.Name = name;
-            this.Birthday = birthday;
-        }
+        public Page(string name, DateTime birthday) : base(name, birthday) { }
     }
 }

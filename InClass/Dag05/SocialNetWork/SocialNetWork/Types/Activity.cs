@@ -11,70 +11,48 @@ namespace SocialNetWork.Types
     public abstract class Activity
     {
         private DateTime eventTime;
-        private ActivityTypes eventType;
-
+        private Person owner;
         public DateTime EventTime { get { return eventTime; } }
+        public Person Owner { get { return owner; } }
 
-        public ActivityTypes Event { get { return eventType; } }
-
-        public Activity(ActivityTypes activity)
+     public Activity(Person owner)
         {
-            SetActivity(activity);
-        }
-
-        public void SetActivity(ActivityTypes activity)
-        {
-            eventType = activity;
             eventTime = DateTime.Now;
+            this.owner = owner;
         }
+
+        public abstract string GetText();
     }
 
-    public class SocialEvent : Activity
+    public class FriendShip : Activity
+    {        
+        private Person friend;
+
+        public FriendShip(Person owner, Person b) : base(owner)
+        {            
+            this.friend = b;
+        }
+
+        public override string GetText()
+        {
+            string description = $"{Owner.Name} - {EventTime}: {Owner.Name} is now friends with {friend.Name}";
+            return description;
+        }      
+    }
+
+    public class LikedPage : Activity
     {
-        public SocialEvent(ActivityTypes activity)  : base(activity)
+        private Page page;        
+        public LikedPage(Person owner, Page likedPage) : base(owner)
         {
-            SetActivity(activity);
+            this.page = likedPage;
+        }
+        public override string GetText()
+        {
+            string description = $"{Owner.Name} - {EventTime}: {Owner.Name} started following {page.Name}";
+            return description;
         }
     }
-
-
-    public class Activities
-    {
-        private List<Activity> activities;
-
-        public Activities(List<Activity> activities)
-        {
-            this.activities = activities;
-        }
-
-        public void AddEvent(Activity activity)
-        {
-            //var newActivity = new Activity();
-            activities.Add(activity);
-        }
-    }
-
-
-
-
-    //public class FriendShip : Activity
-    //{
-    //    // track new friendships between 2 persons
-    //    public FriendShip(Person listOwner, Person newFriend, ActivityTypes activity) : base(activity)
-    //    {
-    //        // add both persons to eachothers list of relations
-    //    }
-    //}
-
-    //public class Following : Activity
-    //{
-    //    // track when person follows page
-    //    public Following(Person listOwner, Page likedPage)
-    //    {
-    //        // add page to listOwners list of relations
-    //    }
-    //}
-
 
 
 }

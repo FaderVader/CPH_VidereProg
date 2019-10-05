@@ -14,8 +14,9 @@ namespace SocialNetWork
         {
             PopulateNetWork();
             //network.PrintAllEntities();
+            //network.PrintAllFriends();
 
-            network.PrintAllFriends();
+            network.PrintAllActivities();
 
             Console.ReadKey();
         }
@@ -35,7 +36,7 @@ namespace SocialNetWork
             Page exiting = new Page("Exiting News", new DateTime(2010, 4, 1));
             network.AddPage(exiting);
 
-            jakob.AddLikedPage(exiting);
+            jakob.AddLikedPage(exiting);  
         }
     }
 }

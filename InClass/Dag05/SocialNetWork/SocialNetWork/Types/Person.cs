@@ -8,21 +8,23 @@ namespace SocialNetWork.Types
 {
     public class Person : Entity
     {
-        public Person(string name, DateTime birthday) : base(name, birthday)
-        {
-            this.Name = name;
-            this.Birthday = birthday;
-        }
+        public Person(string name, DateTime birthday) : base(name, birthday) { }        
 
         public void AddFriend(Person friend)
         {
-            Relations.Add(friend);
-            friend.Relations.Add(this);
+            // add relation to both parties
+            AddRelation(friend);
+            friend.AddRelation(this);
+
+            // add activity to both
+            AddActivity(new FriendShip(this, friend));
+            friend.AddActivity(new FriendShip(friend, this));
         }
 
         public void AddLikedPage(Page page)
         {
-            Relations.Add(page);
+            AddRelation(page);
+            AddActivity(new LikedPage(this, page));
         }
     }
 }
