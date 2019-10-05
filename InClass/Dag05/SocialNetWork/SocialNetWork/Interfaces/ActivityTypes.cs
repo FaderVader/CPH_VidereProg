@@ -8,6 +8,14 @@ namespace SocialNetWork.Interfaces
 {
     public interface IActivity
     {
-        DateTime EventTime { get; set; }
+        DateTime EventTime { get; }
+
+        ActivityTypes Activity { get; }
+    }
+
+    public enum ActivityTypes
+    {
+        Following,
+        Friendship
     }
 }

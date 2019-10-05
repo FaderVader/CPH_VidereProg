@@ -8,35 +8,72 @@ using System.Threading.Tasks;
 
 namespace SocialNetWork.Types
 {
-    public class Event : Activity
+    public abstract class Activity
     {
-        public Event()
+        private DateTime eventTime;
+        private ActivityTypes eventType;
+
+        public DateTime EventTime { get { return eventTime; } }
+
+        public ActivityTypes Event { get { return eventType; } }
+
+        public Activity(ActivityTypes activity)
         {
-            EventTime = DateTime.Now;
+            SetActivity(activity);
+        }
+
+        public void SetActivity(ActivityTypes activity)
+        {
+            eventType = activity;
+            eventTime = DateTime.Now;
         }
     }
 
-    public abstract class Activity
+    public class SocialEvent : Activity
     {
-        public DateTime EventTime { get; set; }
+        public SocialEvent(ActivityTypes activity)  : base(activity)
+        {
+            SetActivity(activity);
+        }
+    }
 
-        //public List<Activity> Events { get; set; } // private list ?
+
+    public class Activities
+    {
+        private List<Activity> activities;
+
+        public Activities(List<Activity> activities)
+        {
+            this.activities = activities;
+        }
 
         public void AddEvent(Activity activity)
         {
-            //Events.Add(activity);
+            //var newActivity = new Activity();
+            activities.Add(activity);
         }
     }
 
-    public class FriendShip : Activity
-    {
-        // track new friendships between 2 persons
-    }
 
-    public class Following : Activity
-    {
-        // track when person follows page
-    }
+
+
+    //public class FriendShip : Activity
+    //{
+    //    // track new friendships between 2 persons
+    //    public FriendShip(Person listOwner, Person newFriend, ActivityTypes activity) : base(activity)
+    //    {
+    //        // add both persons to eachothers list of relations
+    //    }
+    //}
+
+    //public class Following : Activity
+    //{
+    //    // track when person follows page
+    //    public Following(Person listOwner, Page likedPage)
+    //    {
+    //        // add page to listOwners list of relations
+    //    }
+    //}
 
 
 
