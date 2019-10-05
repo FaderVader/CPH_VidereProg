@@ -8,29 +8,37 @@ using System.Threading.Tasks;
 
 namespace SocialNetWork.Types
 {
-    public abstract class Activity
+    public abstract class Activity : IComparable<Activity>
     {
         private DateTime eventTime;
-        private Person owner;
+        private Entity owner;
         public DateTime EventTime { get { return eventTime; } }
-        public Person Owner { get { return owner; } }
+        public Entity Owner { get { return owner; } }
 
-     public Activity(Person owner)
+     public Activity(Entity owner)
         {
             eventTime = DateTime.Now;
             this.owner = owner;
         }
 
         public abstract string GetText();
+
+        public int CompareTo(Activity other)
+        {
+            if (this.EventTime > other.EventTime) {
+                return -1;
+            };
+            return 0;
+        }
     }
 
     public class FriendShip : Activity
     {        
         private Person friend;
 
-        public FriendShip(Person owner, Person b) : base(owner)
+        public FriendShip(Person owner, Person friend) : base(owner)
         {            
-            this.friend = b;
+            this.friend = friend;
         }
 
         public override string GetText()
@@ -50,6 +58,39 @@ namespace SocialNetWork.Types
         public override string GetText()
         {
             string description = $"{Owner.Name} - {EventTime}: {Owner.Name} started following {page.Name}";
+            return description;
+        }
+    }
+
+    public class Entry : Activity
+    {
+        private string entryText;
+
+        public Entry(Entity owner, string entry) : base(owner)
+        {
+            this.entryText = entry;
+        }
+        public override string GetText()
+        {
+            string description = $"{Owner.Name} - {EventTime} Entry: {entryText}";
+            return description;
+        }
+    }
+
+    public class Video : Activity
+    {
+        private string address;
+
+        private string text;        
+
+        public Video(Entity owner, string address, string text) : base(owner)
+        {
+            this.address = address;
+            this.text = text;
+        }
+        public override string GetText()
+        {
+            string description = $"{Owner.Name} - {EventTime} Video: {text} {address}";
             return description;
         }
     }

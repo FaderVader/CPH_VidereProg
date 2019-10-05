@@ -27,14 +27,24 @@ namespace SocialNetWork.Types
             Activities = new List<Activity>();
         }
 
-        public void AddRelation(Entity entity)
+        protected void AddRelation(Entity entity)
         {
             Relations.Add(entity);
         }
 
-        public void AddActivity(Activity activity)
+        protected void AddActivity(Activity activity)
         {
             Activities.Add(activity);
+        }
+
+        public void AddEntry(Entry entry)
+        {
+            AddActivity(entry);
+        }
+
+        public void AddVideo(Video video)
+        {
+            AddActivity(video);
         }
 
         public void PrintActivities()
