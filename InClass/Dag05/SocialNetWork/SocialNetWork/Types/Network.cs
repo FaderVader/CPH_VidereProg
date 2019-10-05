@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace SocialNetWork.Types
 {
-    public class Network 
-    { 
-        private List<Entity> entities; 
+    public class Network
+    {
+        private List<Entity> entities;
 
         public List<Entity> Entities
         {
-            get { return entities;  }
+            get { return entities; }
         }
 
         public Network()
         {
             entities = new List<Entity>();
         }
-        
+
         public void AddPerson(string name, DateTime dateTime)
         {
             Person person = new Person(name, dateTime);
             entities.Add(person);
         }
-                
+
         public void AddPage(string name, DateTime dateTime)
         {
             Page page = new Page(name, dateTime);
@@ -38,7 +38,7 @@ namespace SocialNetWork.Types
         }
 
         public Person GetPerson(string searchName)
-        {            
+        {
             return entities.Where(entity => entity.Name == searchName).FirstOrDefault() as Person;
         }
 
@@ -54,30 +54,36 @@ namespace SocialNetWork.Types
         /// <returns></returns>
         public List<Person> GetPageFollowers(string searchName)
         {
-            // iterate over all entities
-            // if person, check if Page is listed in Relations
-            // if yes, then add person to output-list
-
             Page page = GetPage(searchName);
             List<Person> hitList = new List<Person>();
 
-            foreach( var entity in entities)
-            {
-                if (entity is Person)
-                {
-                    List<Entity> list = entity.Relations;
-                    foreach (var relation in entity.Relations)
-                    {
-                        if (relation is Page)
-                        {
-                            if (relation.Name == page.Name)
-                            {
-                                hitList.Add(entity as Person);
-                            }
-                        }
-                    }
-                }
-            }
+            var result1 = entities.Where(entity => entity is Person).ToList();
+            var result2 = result1.Where(person => person.Relations.Count > 0).ToList(); ;
+            List<Person> result3 = result2.Where(person => person.Relations.Contains(page)).Cast<Person>().ToList();
+            
+            hitList = entities
+                .Where(entity => entity is Person)
+                .Where(person => person.Relations.Contains(page))
+                .Cast<Person>()
+                .ToList();
+
+            //foreach (var entity in entities)
+            //{
+            //    if (entity is Person)
+            //    {
+            //        List<Entity> list = entity.Relations;
+            //        foreach (var relation in entity.Relations)
+            //        {
+            //            if ((relation is Page) && (relation.Name == page.Name))
+            //            {
+            //                {
+            //                    hitList.Add(entity as Person);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
             return hitList;
         }
 
@@ -93,7 +99,7 @@ namespace SocialNetWork.Types
 
         public void PrintAllEntities()
         {
-            foreach(var entity in entities)
+            foreach (var entity in entities)
             {
                 string prefix = "";
                 if (entity is Person)
@@ -105,7 +111,7 @@ namespace SocialNetWork.Types
                 {
                     prefix = "Page";
                 }
-                
+
                 Console.WriteLine($"{prefix}:\t{entity.Name}:\t{entity.Birthday.ToString("MM/dd/yyyy")}");
             }
         }
@@ -120,7 +126,7 @@ namespace SocialNetWork.Types
 
                     foreach (var relation in entity.Relations)
                     {
-                            Console.WriteLine($"- {relation.Name}");
+                        Console.WriteLine($"- {relation.Name}");
                     }
                 }
             }
@@ -128,7 +134,7 @@ namespace SocialNetWork.Types
 
         public void PrintAllActivities()
         {
-            foreach(var entity in entities)
+            foreach (var entity in entities)
             {
                 entity.PrintActivities();
             }
