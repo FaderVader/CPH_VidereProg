@@ -17,7 +17,7 @@ namespace SocialNetWork
 
         private static async void QueryNetwork()
         {
-            int delay = 0;
+            int delay = 2000;
             //Network network = new Network();
 
             PopulateNetwork(network);
@@ -25,6 +25,9 @@ namespace SocialNetWork
             network.GetPage("Exiting News").AddVideo("https://www.youtube.com/watch?v=laPFq3Fhs8k&t=1766s", "Tim Corey is teaching WPF for us noobs");
             network.GetPage("SpacePage").AddEntry("Elon Musk announces BigFuckingRocket");                        
             await Task.Delay(delay);
+
+            // will return null
+            var test = network.GetPerson("SpacePage");
 
             Person jakob = network.GetPerson("Jakob");
             Person jens = network.GetPerson("Jens");
@@ -61,9 +64,9 @@ namespace SocialNetWork
             //network.PrintAllFriends();
             //network.PrintAllEntities();
             //network.PrintAllActivities();
-            //jakob.PrintNewsFeed(); // PrintTimeline
+            jakob.PrintNewsFeed(); // PrintTimeline
 
-            network.PrintPageFollowers("SpacePage");
+            //network.PrintPageFollowers("SpacePage");
         }
 
         public static void PopulateNetwork(Network network)
