@@ -1,10 +1,4 @@
-﻿using SocialNetWork.Interfaces;
-using SocialNetWork.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace SocialNetWork.Types
 {
@@ -15,7 +9,7 @@ namespace SocialNetWork.Types
         public DateTime EventTime { get { return eventTime; } }
         public Entity Owner { get { return owner; } }
 
-     public Activity(Entity owner)
+        public Activity(Entity owner)
         {
             eventTime = DateTime.Now;
             this.owner = owner;
@@ -25,7 +19,8 @@ namespace SocialNetWork.Types
 
         public int CompareTo(Activity other)
         {
-            if (this.EventTime > other.EventTime) {
+            if (this.EventTime > other.EventTime)
+            {
                 return -1;
             };
             return 0;
@@ -33,11 +28,11 @@ namespace SocialNetWork.Types
     }
 
     public class FriendShip : Activity
-    {        
+    {
         private Person friend;
 
         public FriendShip(Person owner, Person friend) : base(owner)
-        {            
+        {
             this.friend = friend;
         }
 
@@ -45,12 +40,12 @@ namespace SocialNetWork.Types
         {
             string description = $"{Owner.Name} - {EventTime}: {Owner.Name} is now friends with {friend.Name}";
             return description;
-        }      
+        }
     }
 
     public class LikedPage : Activity
     {
-        private Page page;        
+        private Page page;
         public LikedPage(Person owner, Page likedPage) : base(owner)
         {
             this.page = likedPage;
@@ -81,7 +76,7 @@ namespace SocialNetWork.Types
     {
         private string address;
 
-        private string text;        
+        private string text;
 
         public Video(Entity owner, string address, string text) : base(owner)
         {

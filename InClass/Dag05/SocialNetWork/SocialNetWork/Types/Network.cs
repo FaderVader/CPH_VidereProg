@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialNetWork.Types
 {
@@ -57,12 +55,14 @@ namespace SocialNetWork.Types
             Page page = GetPage(searchName);
             List<Person> hitList = new List<Person>();
 
+            // brick-by-brick
             var result1 = entities.Where(entity => entity is Person).ToList();
             var result2 = result1.Where(person => person.Relations.Count > 0).ToList(); ;
             List<Person> result3 = result2.Where(person => person.Relations.Contains(page)).Cast<Person>().ToList();
             
+            // one-liner
             hitList = entities
-                .Where(entity => entity is Person)
+                //.Where(entity => entity is Person)
                 .Where(person => person.Relations.Contains(page))
                 .Cast<Person>()
                 .ToList();
