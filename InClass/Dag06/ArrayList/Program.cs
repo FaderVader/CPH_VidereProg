@@ -13,18 +13,25 @@ namespace Undervisningsgang6.Eks2
             x.AddLast("Test5");
             x.AddLast("Test6");
             x.AddLast("Test7");
-
-
-            //x.ReplaceAt(3, "new");
+            
             x.AddAt(3, "added");
             x.AddAt(7, "added2");
+            x.PrintElements();
 
-            Console.WriteLine(x.Get(0));
-            Console.WriteLine(x.Get(1));
-            Console.WriteLine(x.Get(2));
-            Console.WriteLine(x.Get(3));
-            Console.WriteLine(x.Get(4));
+            x.ReplaceAt(3, "replaced");
+            x.PrintElements();
+
+            x.RemoveAt(3);
+            x.RemoveAt(6);
+            x.PrintElements();
+
+
+            x.Clear();
+            x.PrintElements();
+
+            Console.ReadKey();
         }
+
     }
 
     public class ArrayList
@@ -42,20 +49,9 @@ namespace Undervisningsgang6.Eks2
             if (index >= elements)
                 throw new IndexOutOfRangeException();
             if (index < 0)
-                throw new IndexOutOfRangeException();            
+                throw new IndexOutOfRangeException();
         }
 
-        public object[] ShouldWeDoubleIt(int index)
-        {
-            if ((index + 1) >= elements) // there's no more space in the orig array - x2 it
-            {
-                return new object[array.Length * 2];
-            }
-            else
-            {
-                return new object[array.Length];
-            }
-        }
 
         public void AddLast(object o)
         {
@@ -77,50 +73,76 @@ namespace Undervisningsgang6.Eks2
         }
         public object Get(int i)
         {
-           
+
             return array[i];
         }
 
-
-        // ReplaceAt(int index, Object o) 
-        // replace data-payload at position
         public void ReplaceAt(int index, Object o)
         {
             CheckIndex(index);
-            array[index] = o;            
+            array[index] = o;
         }
-
-
-        // AddAt(int index, Object o)
-        // expand array
-        // copy all elements after index to index+1
-        // add new element at index-position
 
         public void AddAt(int index, Object o)
         {
             CheckIndex(index);
-            object[] newArray = ShouldWeDoubleIt(index);  
-            array.CopyTo(newArray, 0);                      
+            object[] newArray = ShouldWeDoubleIt(index);   //
+            array.CopyTo(newArray, 0);
 
             // insert the new element at the requested position
-            newArray[index] = o;            
+            newArray[index] = o;
 
             // copy the old array to the new, one position offset (+)
-            for (int i = index+1; i <= elements; i++)
+            for (int i = index + 1; i <= elements; i++)
             {
-                newArray[i] = Get(i-1);
+                newArray[i] = Get(i - 1);
             }
             elements++;
 
             array = newArray;
 
         }
+        private object[] ShouldWeDoubleIt(int index)
+        {
+            if ((index + 1) >= array.Length) // there's no more space in the orig array - x2 it
+            {
+                return new object[array.Length * 2];
+            }
+            else
+            {
+                return new object[array.Length];
+            }
+        }
 
-        // RemoveAt(index i)
-        // copy all elements from index+1 to to index-1
+        public void RemoveAt(int index)
+        {
+            object[] newArray = new object[array.Length];
+            array.CopyTo(newArray, 0);
 
-        // Clear
-        // delete all elements
+            for (int i = index; i <= elements; i++)
+            {
+                newArray[i] = Get(i + 1);
+            }
+            elements--;
+
+            array = newArray;
+        }
+
+        public void Clear()
+        {
+            array = new object[4];
+            elements = 4;
+        }
+
+        public void PrintElements()
+        {
+            for (int i = 0; i < elements; i++)
+            {
+                Console.WriteLine($"{i}: {array[i]}");
+            }
+            Console.WriteLine("");
+        }
+
 
     }
 }
