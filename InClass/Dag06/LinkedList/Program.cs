@@ -7,24 +7,22 @@ namespace Undervisningsgang6.Eks3.a
         static void Main(string[] args)
         {
             var x = new LinkedList();
+            
             x.AddFirst("First0");
-
             x.AddLast("Last1");
             x.AddLast("Last2");
             x.AddLast("Last3");
             x.AddLast("Last4");
-
-            //x.AddFirst("First2");
-            //x.AddFirst("First3");
-            //x.AddFirst("First4");
-            //x.AddFirst("First5");
-
             x.AddLast("AddedToLast5");
+            x.ReplaceAt(5, "replacedValueAt");
+            x.AddAt(6, "addedatX");
+            x.RemoveAt(2);
+            x.PrintAll();
 
-            x.ReplaceAt(2, "replacedValueAt2");
+            x.Clear();
 
-            x.AddAt(7, "addedat6");
-
+            x.ReplaceAt(0, "replced"); // hmm - that shouldn't work ??
+            x.AddLast("new list");
             x.PrintAll();
 
             Console.ReadKey();
@@ -103,29 +101,27 @@ namespace Undervisningsgang6.Eks3.a
         {
             LinkedListItem previous = head;
             LinkedListItem current = head;
-            LinkedListItem next = head;
+            LinkedListItem next;
 
             int indexer = 0;
-
-            // TODO: throw index-out-of-range exception if next is null
-            //if (current == null) { throw new IndexOutOfRangeException(); }  
-            while (next.GetNext() != null)
+            
+            while (true)
             {
+                if (current == null) throw new IndexOutOfRangeException();
+
                 if (indexer == requestedIndex)
                 {
-                    next = current.GetNext();  
+                    if (current != null) { next = current.GetNext(); } else { next = current; };
                     var newItem = new LinkedListItem(o, next);
                     previous.ModifyNext(newItem);
 
-                    if (indexer==0) { head = newItem; }
+                    if (indexer == 0) { head = newItem; }
                     return;
                 }
 
-                // keep iterating
                 indexer++;
                 previous = current;
                 current = current.GetNext();
-                next = current.GetNext();
             }
         }
 
@@ -141,7 +137,7 @@ namespace Undervisningsgang6.Eks3.a
             LinkedListItem current = head;
             int indexer = 0;
 
-            while (true)  // current.GetNext() != null
+            while (true)  
             {
                 if (indexer == index)
                 {
@@ -149,6 +145,7 @@ namespace Undervisningsgang6.Eks3.a
                     previous.ModifyNext(newItem);
                     return;
                 }
+                if (current == null) throw new IndexOutOfRangeException();
 
                 indexer++;
                 previous = current;
@@ -156,11 +153,36 @@ namespace Undervisningsgang6.Eks3.a
             }
         }
 
-        // RemoveAt(index i)
-        // copy all elements from index+1 to to index-1
+        public void RemoveAt(int index)
+        {
+            LinkedListItem previous = head;
+            LinkedListItem current = head;
+            LinkedListItem next;
+            int indexer = 0;
+
+            while (true)
+            {
+                if (indexer == index)
+                {
+                    if (current != null) { next = current.GetNext(); } else { next = current; };
+                    previous.ModifyNext(next);
+                    return;
+                }
+
+                indexer++;
+                previous = current;
+                current = current.GetNext();
+
+                if (current == null) throw new IndexOutOfRangeException();
+            }
+        }
 
         // Clear
         // delete all elements
+        public void Clear()
+        {
+            head = new LinkedListItem(null, null);
+        }
 
         public void PrintAll()
         {
