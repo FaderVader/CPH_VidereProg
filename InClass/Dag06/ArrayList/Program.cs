@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Undervisningsgang6.Eks2
 {
     class Program
@@ -9,7 +10,7 @@ namespace Undervisningsgang6.Eks2
             x.AddLast("Test1");
             x.AddLast("Test2");
             x.AddLast("Test3");
-            x.AddLast("Test4");
+            x.AddLast("Test4"); 
             x.AddLast("Test5");
             x.AddLast("Test6");
             x.AddLast("Test7");
@@ -43,25 +44,18 @@ namespace Undervisningsgang6.Eks2
             array = new object[4];
             elements = 0;
         }
-
-        public void CheckIndex(int index)
+        public object Get(int i)
         {
-            if (index >= elements)
-                throw new IndexOutOfRangeException();
-            if (index < 0)
-                throw new IndexOutOfRangeException();
+
+            return array[i];
         }
 
-
+        
         public void AddLast(object o)
         {
-            if (elements == array.Length)
-            {
-                var newArray = new object[array.Length * 2];
-                for (int i = 0; i < array.Length; i++)
-                    newArray[i] = array[i];
-                array = newArray;
-            }
+            var newArray = ExpandArrayCheck();
+            array.CopyTo(newArray, 0);
+            array = newArray;
 
             array[elements] = o;
             elements++;
@@ -71,22 +65,15 @@ namespace Undervisningsgang6.Eks2
             array[elements] = null;
             elements--;
         }
-        public object Get(int i)
+        public void ReplaceAt(int index, object o)
         {
-
-            return array[i];
-        }
-
-        public void ReplaceAt(int index, Object o)
-        {
-            CheckIndex(index);
+            IndexCheck(index);
             array[index] = o;
         }
-
-        public void AddAt(int index, Object o)
+        public void AddAt(int index, object o)
         {
-            CheckIndex(index);
-            object[] newArray = ShouldWeDoubleIt(index);   //
+            IndexCheck(index);
+            object[] newArray = ExpandArrayCheck();   
             array.CopyTo(newArray, 0);
 
             // insert the new element at the requested position
@@ -102,18 +89,6 @@ namespace Undervisningsgang6.Eks2
             array = newArray;
 
         }
-        private object[] ShouldWeDoubleIt(int index)
-        {
-            if ((index + 1) >= array.Length) // there's no more space in the orig array - x2 it
-            {
-                return new object[array.Length * 2];
-            }
-            else
-            {
-                return new object[array.Length];
-            }
-        }
-
         public void RemoveAt(int index)
         {
             object[] newArray = new object[array.Length];
@@ -123,17 +98,28 @@ namespace Undervisningsgang6.Eks2
             {
                 newArray[i] = Get(i + 1);
             }
-            elements--;
 
+            elements--;
             array = newArray;
         }
-
         public void Clear()
         {
             array = new object[4];
             elements = 4;
         }
 
+        private object[] ExpandArrayCheck() 
+        {
+            // when there's no more space in the orig array - x2 it
+            return ((elements + 1) >= array.Length) ? new object[array.Length * 2] : new object[array.Length];
+        }
+        public void IndexCheck(int index)
+        {
+            if (index >= elements)
+                throw new IndexOutOfRangeException();
+            if (index < 0)
+                throw new IndexOutOfRangeException();
+        }                
         public void PrintElements()
         {
             for (int i = 0; i < elements; i++)
