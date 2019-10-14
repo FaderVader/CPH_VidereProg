@@ -7,21 +7,23 @@ namespace Undervisningsgang6.Eks3.a
         static void Main(string[] args)
         {
             var x = new LinkedList();
-            x.AddFirst("Test1");
+            x.AddFirst("First0");
 
+            x.AddLast("Last1");
             x.AddLast("Last2");
             x.AddLast("Last3");
             x.AddLast("Last4");
-            x.AddLast("Last5");
 
             //x.AddFirst("First2");
             //x.AddFirst("First3");
             //x.AddFirst("First4");
             //x.AddFirst("First5");
 
-            x.AddLast("TestNew-6");
+            x.AddLast("AddedToLast5");
 
-            x.ReplaceAt(8, "new value");
+            x.ReplaceAt(2, "replacedValueAt2");
+
+            x.AddAt(7, "addedat6");
 
             x.PrintAll();
 
@@ -54,8 +56,7 @@ namespace Undervisningsgang6.Eks3.a
             {
                 return this.next;
             }
-
-
+            
             public void ModifyNext(LinkedListItem next) 
             {
                 this.next = next;
@@ -98,9 +99,6 @@ namespace Undervisningsgang6.Eks3.a
             return item.GetData();
         }
 
-        // ReplaceAt(int index, Object o)
-        // iterate over list until at target index (Get(index))
-        // replace data-payload at position
         public void ReplaceAt(int requestedIndex, Object o)
         {
             LinkedListItem previous = head;
@@ -109,7 +107,7 @@ namespace Undervisningsgang6.Eks3.a
 
             int indexer = 0;
 
-            // TODO: throw index-out-range exception if next is null
+            // TODO: throw index-out-of-range exception if next is null
             //if (current == null) { throw new IndexOutOfRangeException(); }  
             while (next.GetNext() != null)
             {
@@ -131,10 +129,32 @@ namespace Undervisningsgang6.Eks3.a
             }
         }
 
+        public void AddAt(int index, object o)
+        {
+            if (index == 0) // handle edge-case
+            {
+                AddFirst(o);
+                return;
+            }
 
-        // AddAt(int index, Object o)
-        // copy all elements after index to index+1
-        // add new element at index-position
+            LinkedListItem previous = head;
+            LinkedListItem current = head;
+            int indexer = 0;
+
+            while (true)  // current.GetNext() != null
+            {
+                if (indexer == index)
+                {
+                    var newItem = new LinkedListItem(o, current);
+                    previous.ModifyNext(newItem);
+                    return;
+                }
+
+                indexer++;
+                previous = current;
+                current = current.GetNext();
+            }
+        }
 
         // RemoveAt(index i)
         // copy all elements from index+1 to to index-1
